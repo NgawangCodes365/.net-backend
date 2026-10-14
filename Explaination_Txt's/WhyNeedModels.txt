@@ -1,0 +1,18 @@
+SQL Server row
+      |
+      v
+ProductId = 1
+ProductName = "Chicken Momo"
+Price = 180.00
+      |
+      | Dapper maps the columns
+      v
+C# Product object
+      |
+      v
+Product
+{
+    Id = 1,
+    Name = "Chicken Momo",
+    Price = 180.00m
+}

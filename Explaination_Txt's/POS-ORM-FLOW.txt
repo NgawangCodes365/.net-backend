@@ -1,0 +1,25 @@
+This explains our Dapper ORM flow:
+
+Let's say our client wants to view a product.
+
+Therefore, he will try to access product.
+.I.E. get endpoint.
+
+Client---> HTTP Get/api/product ---> ProductsController--> Dapper.
+
+Now, When Our ProductsController reaches Dapper: Dapper will send a SQL query to sql server asking for the records.
+
+Dapper--SQL query---> sql server ---Product records --> Dapper.
+
+And Dapper receives the record the client wanted.
+
+Dapper then follows its C# product object and ProductsController gets the data.
+
+Dapper -- C# object--> ProductsController
+
+After ProductsController receives it : they convert the data back to JSON so that user can receive the data.
+
+ProductsController--JSON---> Client
+
+
+

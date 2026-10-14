@@ -1,0 +1,10 @@
+ProductRepository will communicate with SQLServer
+It will execute queries using dapper.
+Finally, return product data to customer.
+
+
+So, something like
+
+ProductRepository --Queries-->Dapper--->Execute--->SQLServer
+
+SQLserver-->Dapper--->ProductRepository

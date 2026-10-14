@@ -1,0 +1,28 @@
+Client
+  |
+  | GET /api/products
+  v
+ProductsController
+  |
+  | Requests product data
+  v
+ProductRepository
+  |
+  | Executes SQL using Dapper
+  v
+SQL Server (POS_DB)
+  |
+  | Returns product records
+  v
+ProductRepository
+  |
+  | Returns Product objects
+  v
+ProductsController
+  |
+  | Returns HTTP 200 + JSON
+  v
+Client
+
+We can clearly see: ProductsController doesnt need to know how SQLServer works.
+It only needs to know how and which data to request.
