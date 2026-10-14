@@ -1,0 +1,81 @@
+# ==========================================
+# .NET build outputs
+# ==========================================
+**/bin/
+**/obj/
+
+# ==========================================
+# Visual Studio / VS Code
+# ==========================================
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# ==========================================
+# IDE settings
+# ==========================================
+.idea/
+*.swp
+*.swo
+
+# ==========================================
+# macOS
+# ==========================================
+.DS_Store
+
+# ==========================================
+# Logs
+# ==========================================
+*.log
+
+# ==========================================
+# Local environment and secrets
+# ==========================================
+.env
+.env.*
+!.env.example
+secrets.json
+appsettings.Local.json
+
+# ==========================================
+# Test and coverage outputs
+# ==========================================
+TestResults/
+coverage/
+coverage.*
+
+# ==========================================
+# Temporary files
+# ==========================================
+*.tmp
+*.bak
+*.orig
+*~
+
+Save the file.
+
+### Why are we ignoring these files?
+
+| Pattern | Reason |
+|---|---|
+| `**/bin/` | Contains compiled application output. |
+| `**/obj/` | Contains generated build and dependency files. |
+| `.DS_Store` | macOS folder metadata that doesn't belong in the project. |
+| `.env` | Often contains local environment variables or secrets. |
+| `appsettings.Local.json` | Intended for local-only configuration. |
+| `TestResults/` | Contains generated test output. |
+
+**Important:** We are not ignoring `appsettings.json` or `appsettings.Development.json`. These files often contain shared, non-secret configuration and can be useful in Git. Never commit actual passwords, connection strings containing credentials, API keys, or other secrets.
+
+Also, `.gitignore` does not automatically stop tracking files that Git already tracks. We'll check that next.
+
+---
+
+## Step 3 — Verify that Git recognizes the rules
+
+Run:
+
+```bash
+git status --short
