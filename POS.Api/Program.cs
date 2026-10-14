@@ -1,9 +1,12 @@
+//this creates a builder to configure the application.
+//Know this : our application needs to be configured and we are creating a builder.
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+//this builds the configured web application.
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
