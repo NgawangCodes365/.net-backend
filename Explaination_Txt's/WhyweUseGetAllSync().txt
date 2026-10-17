@@ -1,0 +1,56 @@
+So our database consists of table called dbo.Products.
+But, it cannot retrieve any products .
+
+what i meant to say is : 
+We can go inside datagrip aand write a simple query like
+
+
+SELECT
+    ProductId AS Id,
+    ProductName AS Name,
+    Price
+    FROM dbo.Products;
+
+Well, this query will retrieve all products from the dbo.Products table
+But , we dont want to always manually execute SQL in datagrip.
+
+C# application must --> execute query auto.
+
+For that we use GetAllSync().
+
+
+        public async Task<IEnumerable<Product>> GetAllAsync()
+            what this means :
+
+            1. Async: this allows method to perform asynchronous operation using await.
+    Basically: the explaination is Data queries can take time. Therefore, asynchronous operations allow the app to avoid blocking 
+    a thread while waiting for database response.
+
+    2. Task<> : it means it will be a async operation.
+
+    3. IEnumerable<Product> : It promises to return a group of product back.
+
+
+const string sql = @"
+            SELECT
+                ProductId as Id,
+                ProductName as Name,
+                Price
+            FROM dbo.Products;
+            ";
+
+Here, const means: It's value cannot be changed after declaration.
+string means : We are storing text.
+
+using var connection = new SqlConnection(_connectionString);
+            //here using var means: if exception occurs here --> this connection object is to be disposed when it leaves its intended scope.
+            //This helps resource release properly.
+var products = await connection.QueryAsync<Product>(sql);
+            //so var products means we are storing it in products. var is used to determine the type of the products which we yet cant specify.
+            //well it is a object but we use var anyway.
+
+            //await means waiting asynchronously meaning while waiting for this - other operations can be done simultaneously.
+            //connection. means connecting with the above Object we created.
+            //(sql) it is the query we want to be executed sent here.
+            // QueryAsync<Product> -- it executes the query asynchronously and maps it to Product objects.
+            //We dont need to create multiple Objects .. dapper does that for us automatically.
