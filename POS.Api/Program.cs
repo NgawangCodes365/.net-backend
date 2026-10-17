@@ -1,10 +1,16 @@
 //this creates a builder to configure the application.
 //Know this : our application needs to be configured and we are creating a builder.
+using POS.Api.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddControllers();
+
+//adding scope to ProductRepository.
+builder.Services.AddScoped<ProductRepository>();
 
 //this builds the configured web application.
 var app = builder.Build();
