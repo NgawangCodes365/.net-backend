@@ -2,9 +2,40 @@ ProductRepository will communicate with SQLServer
 It will execute queries using dapper.
 Finally, return product data to customer.
 
-
 So, something like
-
 ProductRepository --Queries-->Dapper--->Execute--->SQLServer
+SQLserver-->Dapper--->ProductRepository.
 
-SQLserver-->Dapper--->ProductRepository
+
+
+After Creating Product Repository Class. For Using It 
+
+Ok we have just created our ProductRepository class.
+Made it's constructor and now are going to ensure other files can also use it .
+
+For example : 
+we had 
+    public class ProductRepository{
+        .....
+    }
+Lets say our Controller wants to use the methods inside it... For example: GetAllAsync() method
+We want to use this method.
+Therefore, we will create object of ProductRepository to call it.
+
+private readonly ProductRepository _productRepository;
+
+But , the problem is some1 using This particular repository must also include the different kinds of dependencies the ProductRepository has .
+Some1 is using the methods of the ProductRepository.
+So, To use a method we need to have the dependencies of it installed too :?
+
+Sounds a-bit hassle right?
+So ASP.net provides us with a important Concept called Dependency Injection.
+Basically, in this part what we do is :
+1. We register the repository with Asp.Net Dependency Injection Container in program.cs .
+
+Note: This wont immediately create the repository object.
+[but the action we want is  similar to the repository object]
+
+2. So we did builder.Services.AddScoped<ProductRepository>();
+What this AddScoped does is it tells our program.cs/builder that : When something needs a ProductRepository: you will need to provide instance
+according to the Scoped lifetime.
