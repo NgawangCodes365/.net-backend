@@ -39,8 +39,6 @@ namespace POS.Api.Repositories
             FROM dbo.Products;
             ";
             using var connection = new SqlConnection(_connectionString);
-            //here using var means: if exception occurs here --> this connection object is to be disposed when it leaves its intended scope.
-            //This helps resource release properly.
             var products = await connection.QueryAsync<Product>(sql);
             return products;
         }
