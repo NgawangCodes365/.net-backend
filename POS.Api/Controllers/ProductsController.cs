@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 //this allows us to ASP.Net's Core MVC features including : controllers, HTTP routes etc.
 using POS.Api.Models;
+using POS.Api.Repositories;
 
 namespace POS.Api.Controllers
 //creating filepath for this file.
@@ -10,13 +11,17 @@ namespace POS.Api.Controllers
     [Route("api/[controller]")]
     //this defines the route pattern of this controller.
     // When asp.net see's [controller]: it removes the Controller suffix and gives the route.
-    //For example : ProductsController would be Products --> Product.
+    //For example : ProductsController would be Products.
     //So, route is api/products
 
     //we will use Dapper: Lightweight ORM.
     public class ProductsController: ControllerBase
     {
-        
+        private readonly ProductRepository _productRepository;
+        public ProductsController(ProductRepository productRepository)
+        {
+            _productRepository = productRepository;
+        }
     }
 
   
