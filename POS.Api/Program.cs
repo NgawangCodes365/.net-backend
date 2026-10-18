@@ -14,6 +14,10 @@ builder.Services.AddControllers();
 //Registering ProductRepository services with AddScope.
 builder.Services.AddScoped<ProductRepository>();
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+//added swagger code.
+
 //this builds the configured web application.
 var app = builder.Build();
 
