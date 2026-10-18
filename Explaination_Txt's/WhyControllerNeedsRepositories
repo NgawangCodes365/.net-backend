@@ -1,0 +1,82 @@
+Just imagine:
+
+A client sends:
+GET/ api/ products
+
+Well, the controller might receive this request. But, it doesnt know how to retrieve the products from the SqlServer.
+Thats the job of the repositories.
+
+Therefore, we want :
+
+Client --Get Request--> ProductsController --Request Data --> ProductRepositories --Execute SQL Query using Dapper --> SqlServer.
+
+Therefore, our Controller must use the repositories.
+
+so, we do using POS.Api.Repositories;
+
+
+After understanding why we need it :
+
+Explaination on 
+private readonly ProductRepository _productRepository;
+
+private: private
+readonly : Field can be assigned when declared or inside an constructor, but it cannot be reassigned later.
+ProductRepository _productRepository: _productRepository is the field that holds the reference to the object of ProductRepository
+and  can be used by the Controllers. 
+
+So, we are not creating a object.
+
+
+
+
+HOW ASP.NET works inside it :
+
+Step A: We register the repository in Program.cs
+
+builder.Services.AddScoped<ProductRepository>();
+
+This tells ASP.NET Core:
+
+“When a component needs a ProductRepository, provide an instance according to its scoped lifetime.”
+
+At this point, we’re registering the type; we’re not necessarily creating an object immediately.
+
+Step B: A request arrives for our controller
+Suppose someone requests:
+GET /api/products
+ASP.NET Core determines that it needs to create a ProductsController to handle that request.
+
+Step C: ASP.NET Core examines the constructor
+public ProductsController(ProductRepository productRepository)
+{
+    _productRepository = productRepository;
+}
+ASP.NET Core sees that the constructor requires a ProductRepository object.
+
+It checks its DI registrations and creates or obtains an appropriate instance.
+
+Step D: ASP.NET Core supplies the object
+
+Conceptually, the process looks like this:
+Program.cs
+    |
+    | AddScoped<ProductRepository>()
+    v
+DI container knows how to provide the repository
+    |
+    | HTTP request arrives
+    v
+ASP.NET Core needs ProductsController
+    |
+    | Examines its constructor
+    v
+ProductsController(ProductRepository productRepository)
+    |
+    | DI supplies the repository object
+    v
+productRepository receives the reference
+    |
+    | Assignment
+    v
+_productRepository = productRepository;
