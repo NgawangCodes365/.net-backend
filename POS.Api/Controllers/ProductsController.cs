@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
+
 //this allows us to ASP.Net's Core MVC features including : controllers, HTTP routes etc.
 using POS.Api.Models;
 using POS.Api.Repositories;
@@ -22,8 +24,18 @@ namespace POS.Api.Controllers
         {
             _productRepository = productRepository;
         }
+    
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+        {
+            //so _productRepository is the referenced one we were talking before that could be used by the controller
+            //it is being used below.
+            
+            //await means : the task is being performed asynchronously.
+            var products = await _productRepository.GetAllAsync();
+            return Ok(products);
+        }
+
     }
-
-  
-
 }
