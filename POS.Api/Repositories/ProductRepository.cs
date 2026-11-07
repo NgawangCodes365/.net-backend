@@ -4,6 +4,7 @@
 //so here we will implement the database access logic using Dapper.
 
 
+using System.Data.Common;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using POS.Api.Models;
@@ -41,6 +42,30 @@ namespace POS.Api.Repositories
             using var connection = new SqlConnection(_connectionString);
             var products = await connection.QueryAsync<Product>(sql);
             return products;
+        }
+
+        public async Task<Product?> GetByIdAsync(int id)
+        // what does this Task<Product?> mean: 
+        //It means it either produces a Product or null vvalue.
+        {
+            const string sql = @"
+            SELECT
+                ProductId AS Id,
+                ProductName AS Name,
+                Price
+            FROM dbo.Products
+            WHERE ProductId = @Id;
+            ";
+            using var connection = new SqlConnection(_connectionString);
+
+            var product = await connection.QuerySingleOrDefaultAsync<Product>(
+                sql,
+                new { Id = id}
+            );
+            return product;
+            //query means : execute query.
+            //single means : 1 matching row.
+            //orDefault means: the result is null if there are no matching rows
         }
 
     }
