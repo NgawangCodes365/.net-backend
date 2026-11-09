@@ -53,10 +53,26 @@ Track what was learned, what was decided, and what comes next. Update this as wo
 - Implementing locking, retries, or conflict HTTP semantics in InventoryEngine
 - Adding EF Core / PostgreSQL packages or stock entities
 
+### 2026-11-08 — Initial core domain-model design (proposal)
+
+**Goal:** Design only `Item`, `Store`, and `StoreItemStock` as the first InventoryEngine domain core — proposal only; no implementation and no ADR yet.
+
+**What we did**
+
+- Started the initial domain-model design discussion for the three core concepts
+- Separated essential vs future attributes, business invariants vs database constraints
+- Compared company fields for deliberate include/exclude (not schema copying)
+
+**Not done yet (intentionally)**
+
+- Owner approval of the proposed attributes, keys, and creation rules
+- Recording approved choices in `ARCHITECTURE_DECISIONS.md`
+- EF Core entities, migrations, or API endpoints
+
 ## Next learning targets (pending approval)
 
 1. ~~Confirm target framework (`net8.0` vs `net10.0`)~~ — done: `net10.0` (ADR-005)
-2. Agree on first vertical slice (likely a tiny health/readiness endpoint or a single read-only entity)
-3. Decide when to add EF Core + Npgsql packages
-4. Sketch the first domain model from business capabilities (not from company tables)
+2. Approve initial `Item` / `Store` / `StoreItemStock` domain model
+3. Agree on first vertical slice after model approval
+4. Decide when to add EF Core + Npgsql packages
 5. Design InventoryEngine concurrency/transaction strategy (after domain sketch) — **pending**
